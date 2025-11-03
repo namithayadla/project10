@@ -1,4 +1,4 @@
-
+import re
 class HTMLNode():
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
@@ -23,6 +23,8 @@ class LeafNode(HTMLNode):
         if self.tag is None:
             return self.value
         return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
+   
+
 
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
@@ -36,3 +38,12 @@ class ParentNode(HTMLNode):
         for child in self.children:
             children_html += child.to_html()
         return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
+    
+def extract_markdown_images(text):
+    image_pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(image_pattern, text)
+    return matches
+def extract_markdown_links(text):
+    link_pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(link_pattern, text)
+    return matches

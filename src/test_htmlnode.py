@@ -1,4 +1,5 @@
 from htmlnode import *
+from textnode import *
 
 # def test_to_html():
 #     node = HTMLNode(tag="p")
